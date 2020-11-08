@@ -314,8 +314,14 @@ func (r *mockRepoData) AddRemote(name string, url string) error {
 	panic("implement me")
 }
 
+var _ RepoClock = &mockRepoClock{}
+
 type mockRepoClock struct {
 	clocks map[string]lamport.Clock
+}
+
+func (r *mockRepoClock) AllClocks() (map[string]lamport.Clock, error) {
+	return r.clocks, nil
 }
 
 func NewMockRepoClock() *mockRepoClock {
@@ -332,4 +338,20 @@ func (r *mockRepoClock) GetOrCreateClock(name string) (lamport.Clock, error) {
 	c := lamport.NewMemClock()
 	r.clocks[name] = c
 	return c, nil
+}
+
+func (r *mockRepoClock) Increment(name string) (lamport.Time, error) {
+	c, err := r.GetOrCreateClock(name)
+	if err != nil {
+		return lamport.Time(0), err
+	}
+	return c.Increment()
+}
+
+func (r *mockRepoClock) Witness(name string, time lamport.Time) error {
+	c, err := r.GetOrCreateClock(name)
+	if err != nil {
+		return err
+	}
+	return c.Witness(time)
 }
