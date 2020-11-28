@@ -193,7 +193,7 @@ func TestGithubPushPull(t *testing.T) {
 
 	// initialize exporter
 	exporter := &githubExporter{}
-	err = exporter.Init(ctx, backend, core.Configuration{
+	err = exporter.Init(ctx, backend, "test", core.Configuration{
 		confKeyOwner:        envUser,
 		confKeyProject:      projectName,
 		confKeyDefaultLogin: login,
@@ -221,7 +221,7 @@ func TestGithubPushPull(t *testing.T) {
 	require.NoError(t, err)
 
 	importer := &githubImporter{}
-	err = importer.Init(ctx, backend, core.Configuration{
+	err = importer.Init(ctx, backend, "test", core.Configuration{
 		confKeyOwner:        envUser,
 		confKeyProject:      projectName,
 		confKeyDefaultLogin: login,

@@ -34,6 +34,7 @@ func (*Jira) ValidParams() map[string]interface{} {
 		"CredPrefix": nil,
 		"Project":    nil,
 		"TokenRaw":   nil,
+		"Filter":     nil,
 	}
 }
 
@@ -63,6 +64,15 @@ func (j *Jira) Configure(repo *cache.RepoCache, params core.BridgeParams, intera
 			return nil, err
 		}
 	}
+
+	filter := params.Filter
+
+	fmt.Println(credTypeText)
+	credTypeInput, err := input.PromptChoice("Authentication mechanism", []string{"SESSION", "TOKEN"})
+	if err != nil {
+		return nil, err
+	}
+	credType := []string{"SESSION", "TOKEN"}[credTypeInput]
 
 	var login string
 	var credType string
@@ -116,6 +126,7 @@ func (j *Jira) Configure(repo *cache.RepoCache, params core.BridgeParams, intera
 	conf[core.ConfigKeyTarget] = target
 	conf[confKeyBaseUrl] = baseURL
 	conf[confKeyProject] = project
+	conf[confKeyFilter] = filter
 	conf[confKeyCredentialType] = credType
 	conf[confKeyDefaultLogin] = login
 

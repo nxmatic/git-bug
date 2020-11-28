@@ -106,6 +106,7 @@ git bug bridge configure \
 	flags.StringVarP(&options.params.Owner, "owner", "o", "", "The owner of the remote repository")
 	flags.StringVarP(&options.params.Project, "project", "p", "", "The name of the remote repository")
 	flags.BoolVar(&options.nonInteractive, "non-interactive", false, "Do not ask for user input")
+	flags.StringVarP(&options.params.Filter, "filter", "f", "", "The issues filter")
 
 	return cmd
 }

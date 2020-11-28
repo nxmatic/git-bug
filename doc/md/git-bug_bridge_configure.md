@@ -82,6 +82,7 @@ git bug bridge configure \
   -o, --owner string        The owner of the remote repository
   -p, --project string      The name of the remote repository
       --non-interactive     Do not ask for user input
+  -f, --filter string       The issues filter
   -h, --help                help for configure
 ```
 

@@ -31,7 +31,7 @@ type githubImporter struct {
 	out chan<- core.ImportResult
 }
 
-func (gi *githubImporter) Init(_ context.Context, repo *cache.RepoCache, conf core.Configuration) error {
+func (gi *githubImporter) Init(_ context.Context, repo *cache.RepoCache, name string, conf core.Configuration) error {
 	gi.conf = conf
 	creds, err := auth.List(repo,
 		auth.WithTarget(target),
