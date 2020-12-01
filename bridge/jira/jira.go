@@ -31,6 +31,7 @@ const (
 	confKeyCredentialType = "credentials-type" // "SESSION" or "TOKEN"
 	confKeyIDMap          = "bug-id-map"
 	confKeyIDRevMap       = "bug-id-revmap"
+	confKeyLabelsId       = "labels-id"
 	// the issue type when exporting a new bug. Default is Story (10001)
 	confKeyCreateDefaults = "create-issue-defaults"
 	// if set, the bridge fill this JIRA field with the `git-bug` id when exporting

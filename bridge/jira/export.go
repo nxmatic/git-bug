@@ -24,8 +24,9 @@ var (
 
 // jiraExporter implement the Exporter interface
 type jiraExporter struct {
-	name string
-	conf core.Configuration
+	name         string
+	labelsJiraID string
+	conf         core.Configuration
 
 	// cache identities clients
 	identityClient map[entity.Id]*Client
@@ -48,6 +49,7 @@ type jiraExporter struct {
 func (je *jiraExporter) Init(ctx context.Context, repo *cache.RepoCache, name string, conf core.Configuration) error {
 	je.name = name
 	je.conf = conf
+	je.labelsJiraID = "labels"
 	je.identityClient = make(map[entity.Id]*Client)
 	je.cachedOperationIDs = make(map[entity.Id]string)
 	je.cachedLabels = make(map[string]string)
@@ -58,6 +60,9 @@ func (je *jiraExporter) Init(ctx context.Context, repo *cache.RepoCache, name st
 	}
 	je.statusMap = statusMap
 
+	if je.conf[confKeyLabelsId] != "" {
+		je.labelsJiraID = je.conf[confKeyLabelsId]
+	}
 	// preload all clients
 	err = je.cacheAllClient(ctx, repo)
 	if err != nil {
@@ -404,7 +409,7 @@ func (je *jiraExporter) exportBug(ctx context.Context, b *cache.BugCache, out ch
 
 		case *bug.LabelChangeOperation:
 			exportTime, err = client.UpdateLabels(
-				bugJiraID, opr.Added, opr.Removed)
+				bugJiraID, je.labelsJiraID, opr.Added, opr.Removed)
 			if err != nil {
 				err := errors.Wrap(err, "updating labels")
 				out <- core.NewExportError(err, b.Id())

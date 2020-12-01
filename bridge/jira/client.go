@@ -1230,7 +1230,7 @@ func (client *Client) UpdateComment(issueKeyOrID, commentID, body string) (
 }
 
 // UpdateLabels changes labels for an issue
-func (client *Client) UpdateLabels(issueKeyOrID string, added, removed []bug.Label) (time.Time, error) {
+func (client *Client) UpdateLabels(issueKeyOrID string, labelFieldID string, added, removed []bug.Label) (time.Time, error) {
 	url := fmt.Sprintf(
 		"%s/rest/api/2/issue/%s/", client.serverURL, issueKeyOrID)
 	var responseTime time.Time
@@ -1238,7 +1238,7 @@ func (client *Client) UpdateLabels(issueKeyOrID string, added, removed []bug.Lab
 	// NOTE(josh): Since updates are a list of heterogeneous objects let's just
 	// manually build the JSON text
 	var buffer bytes.Buffer
-	_, _ = fmt.Fprintf(&buffer, `{"update":{"labels":[`)
+	_, _ = fmt.Fprintf(&buffer, `{"update":{"%s":[`, labelFieldID)
 	first := true
 	for _, label := range added {
 		if !first {

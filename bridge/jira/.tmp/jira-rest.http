@@ -1,0 +1,38 @@
+POST https://jira.nuxeo.com/rest/api/2/search HTTP/1.1
+content-type: application/json
+
+{
+    "jql" :  "\"Tags\" in (\"nxnos\") AND \"Tags\" != \"icebox\" AND (\"status\" = \"TO DO\" OR "\status\" = AND NOT (\"status\" = \"Resolved\" AND (\"fixVersion\" in (\"NoFixVersionApplicable\", \"JSFMigration\") OR \"project\" in (\"Nuxeo Platform\", \"Nuxeo ECM Build/Test Environment\") OR \"Resolution\" in (\"Won't Do\", \"Duplicate\", \"Won't Fix\", \"Feature Candidate\", \"Not A Bug\", \"Cannot Reproduce\", \"Added to Roadmap\", \"Incomplete\")))"
+}
+
+###
+
+GET https://jira.nuxeo.com/rest/api/2/issuetype HTTP/1.1
+content-type: application/json
+
+###
+
+GET https://jira.nuxeo.com/rest/api/2/field HTTP/1.1
+content-type: application/json
+
+###
+GET https://jira.nuxeo.com/rest/api/2/project/NXS/components HTTP/1.1
+content-type: application/json
+
+###
+POST https://jira.nuxeo.com/rest/api/2/issue HTTP/1.1
+content-type: application/json
+
+{
+  "fields": {
+    "customfield_10080": [
+      "nxnos"
+    ],
+    "description": "* add a new module in infra\n* add the matching toleration and node selector in previews pod templates",
+    "issuetype": "3",
+    "project": {
+      "id": "10281"
+    },
+    "summary": "isolate previews in a dedicated namespace"
+  }
+}
