@@ -7,3 +7,6 @@ git-bug
 dist
 coverage.txt
 .idea/
+
+# emacs backup files
+*~
