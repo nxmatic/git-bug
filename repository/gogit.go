@@ -5,22 +5,23 @@ import (
 	"fmt"
 	"io/ioutil"
 	"os"
+	"os/exec"
 	"path/filepath"
 	"sort"
 	"strings"
 	"sync"
 	"time"
 
-	"github.com/blevesearch/bleve"
+	"github.com/99designs/keyring"
 	"github.com/go-git/go-billy/v5"
+	"github.com/go-git/go-billy/v5/memfs"
 	"github.com/go-git/go-billy/v5/osfs"
 	gogit "github.com/go-git/go-git/v5"
 	"github.com/go-git/go-git/v5/config"
 	"github.com/go-git/go-git/v5/plumbing"
 	"github.com/go-git/go-git/v5/plumbing/filemode"
 	"github.com/go-git/go-git/v5/plumbing/object"
-	"golang.org/x/crypto/openpgp"
-	"golang.org/x/sys/execabs"
+	"github.com/go-git/go-git/v5/storage/memory"
 
 	"github.com/MichaelMure/git-bug/util/lamport"
 )
@@ -212,10 +213,7 @@ func (repo *GoGitRepo) LocalConfig() Config {
 
 // GlobalConfig give access to the global scoped configuration
 func (repo *GoGitRepo) GlobalConfig() Config {
-	// TODO: replace that with go-git native implementation once it's supported
-	// see: https://github.com/go-git/go-git
-	// see: https://github.com/src-d/go-git/issues/760
-	return newGitConfig(gitCli{path: repo.path}, true)
+	return newGoGitGlobalConfig()
 }
 
 // AnyConfig give access to a merged local/global configuration
