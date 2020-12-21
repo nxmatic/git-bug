@@ -2,8 +2,6 @@ package commands
 
 import (
 	"github.com/spf13/cobra"
-
-	"github.com/MichaelMure/git-bug/input"
 )
 
 func newUserCreateCommand() *cobra.Command {
@@ -23,30 +21,34 @@ func newUserCreateCommand() *cobra.Command {
 }
 
 func runUserCreate(env *Env) error {
-	preName, err := env.backend.GetUserName()
+	/* 	preName, err := env.backend.GetUserName()
+	   	if err != nil {
+	   		return err
+	   	}
+
+	   	name, err := input.PromptDefault("Name", "name", preName, input.Required)
+	   	if err != nil {
+	   		return err
+	   	} */
+
+	name := "Stephane Lacoin (aka nxmatic)"
+
+	email, err := env.backend.GetUserEmail()
 	if err != nil {
 		return err
 	}
 
-	name, err := input.PromptDefault("Name", "name", preName, input.Required)
-	if err != nil {
-		return err
-	}
+	avatarURL, err := env.backend.GetAvatarUrl()
 
-	preEmail, err := env.backend.GetUserEmail()
-	if err != nil {
-		return err
-	}
+	/* 	email, err := input.PromptDefault("Email", "email", preEmail, input.Required)
+	   	if err != nil {
+	   		return err
+	   	}
 
-	email, err := input.PromptDefault("Email", "email", preEmail, input.Required)
-	if err != nil {
-		return err
-	}
-
-	avatarURL, err := input.Prompt("Avatar URL", "avatar")
-	if err != nil {
-		return err
-	}
+	   	avatarURL, err := input.Prompt("Avatar URL", "avatar")
+	   	if err != nil {
+	   		return err
+	   	} */
 
 	id, err := env.backend.NewIdentityRaw(name, email, "", avatarURL, nil)
 	if err != nil {
