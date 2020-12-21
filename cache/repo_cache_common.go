@@ -61,6 +61,11 @@ func (c *RepoCache) LocalStorage() billy.Filesystem {
 	return c.repo.LocalStorage()
 }
 
+// GetAvatarUrl returns the avatar URL that the user has used to configure git.
+func (c *RepoCache) GetAvatarUrl() (string, error) {
+	return c.repo.GetAvatarUrl()
+}
+
 // ReadData will attempt to read arbitrary data from the given hash
 func (c *RepoCache) ReadData(hash repository.Hash) ([]byte, error) {
 	return c.repo.ReadData(hash)

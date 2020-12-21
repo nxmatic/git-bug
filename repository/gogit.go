@@ -227,6 +227,11 @@ func (repo *GoGitRepo) GetUserEmail() (string, error) {
 	return repo.AnyConfig().ReadString("user.email")
 }
 
+// GetAvatarUrl returns the avatar URL that the user has used to configure git.
+func (repo *GoGitRepo) GetAvatarUrl() (string, error) {
+	return repo.AnyConfig().ReadString("user.avatarUrl")
+}
+
 // GetCoreEditor returns the name of the editor that the user has used to configure git.
 func (repo *GoGitRepo) GetCoreEditor() (string, error) {
 	// See https://git-scm.com/docs/git-var

@@ -66,6 +66,9 @@ type RepoCommon interface {
 	// GetUserEmail returns the email address that the user has used to configure git.
 	GetUserEmail() (string, error)
 
+	// GetAvatarUrl returns the avatar URL that the user has used to configure git.
+	GetAvatarUrl() (string, error)
+
 	// GetCoreEditor returns the name of the editor that the user has used to configure git.
 	GetCoreEditor() (string, error)
 

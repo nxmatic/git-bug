@@ -105,6 +105,11 @@ func (r *mockRepoCommon) GetUserEmail() (string, error) {
 	return "user@example.com", nil
 }
 
+// GetUserAvatar returns the avatar URL that the user has used to configure git.
+func (r *mockRepoCommon) GetAvatarUrl() (string, error) {
+	return "https://example.com/images/avatar.jpg", nil
+}
+
 // GetCoreEditor returns the name of the editor that the user has used to configure git.
 func (r *mockRepoCommon) GetCoreEditor() (string, error) {
 	return "vi", nil
