@@ -91,9 +91,6 @@ func (gc *gitConfig) ReadString(key string) (string, error) {
 	if len(lines) == 0 {
 		return "", ErrNoConfigEntry
 	}
-	if len(lines) > 1 {
-		return "", ErrMultipleConfigEntry
-	}
 
 	return lines[0], nil
 }
