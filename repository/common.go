@@ -41,9 +41,7 @@ func nonNativeListCommits(repo RepoData, ref string) ([]Hash, error) {
 			return nil, err
 		}
 
-		for _, parent := range commit.Parents {
-			stack = append(stack, parent)
-		}
+		stack = append(stack, commit.Parents...)
 	}
 
 	// reverse

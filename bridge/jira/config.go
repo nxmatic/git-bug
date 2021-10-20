@@ -72,11 +72,12 @@ func (j *Jira) Configure(repo *cache.RepoCache, params core.BridgeParams, intera
 	if err != nil {
 		return nil, err
 	}
-	credType := []string{"SESSION", "TOKEN"}[credTypeInput]
 
 	var login string
 	var credType string
 	var cred auth.Credential
+
+	credType = []string{"SESSION", "TOKEN"}[credTypeInput]
 
 	switch {
 	case params.CredPrefix != "":
